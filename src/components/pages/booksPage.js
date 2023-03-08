@@ -1,12 +1,11 @@
 import React, { Component } from "react";
-import { Col, Row, Container } from "reactstrap";
 import ItemList from "../itemList";
 import CharDetails, { Field } from "../charDetails";
 import ErrorMessage from "../errorMessage";
 import gotService from "../services/gotService";
 import RowBlock from "../rowBlock";
 
-export default class CharacterPage extends Component {
+export default class BooksPage extends Component {
   gotService = new gotService();
 
   state = {
@@ -34,19 +33,18 @@ export default class CharacterPage extends Component {
     const itemList = (
       <ItemList
         onItemSelected={this.onItemSelected}
-        getData={this.gotService.getAllCharacters}
-        renderItem={({ name, gender }) => `${name} (${gender}) `}
+        getData={this.gotService.getAllBooks}
+        renderItem={({ name, numberOfPages }) => `${name} (${numberOfPages}) `}
       />
     );
 
-    const charDetails = (
+    const bookDetails = (
       <CharDetails charId={this.state.selectedChar}>
-        <Field field="gender" label="Gender" />
-        <Field field="born" label="Born" />
-        <Field field="died" label="Died" />
-        <Field field="culture" label="Culture" />
+        <Field field="numberOfPages" label="Number of pages" />
+        <Field field="publier" label="Publier" />
+        <Field field="released" label="Released" />
       </CharDetails>
     );
-    return <RowBlock left={itemList} right={charDetails} />;
+    return <RowBlock left={itemList} right={bookDetails} />;
   }
 }

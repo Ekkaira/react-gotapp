@@ -1,7 +1,11 @@
 import React, { Component } from "react";
 import Spinner from "../spinner";
+import { v4 as uuidv4 } from "uuid";
 
 import "./itemList.css";
+
+const randomKey = uuidv4();
+
 export default class ItemList extends Component {
   state = {
     itemList: null,
@@ -18,16 +22,15 @@ export default class ItemList extends Component {
   }
 
   renderItems(arr) {
-    return arr.map((item, i) => {
-      const { id } = item;
+    return arr.map((item, randomKey) => {
       const label = this.props.renderItem(item);
 
       return (
         <li
-          key={id}
+          key={randomKey}
           className="list-group-item"
           onClick={() => {
-            this.props.onItemSelected(id);
+            this.props.onItemSelected(randomKey);
           }}
         >
           {label}
