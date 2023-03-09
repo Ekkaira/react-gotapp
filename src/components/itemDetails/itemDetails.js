@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import gotService from "../services/gotService";
 
-import "./charDetails.css";
+import "./itemDetails.css";
 
 const Field = ({ char, field, label }) => {
   return (
@@ -13,11 +13,11 @@ const Field = ({ char, field, label }) => {
 };
 
 export { Field };
-export default class CharDetails extends Component {
+export default class ItemDetails extends Component {
   gotService = new gotService();
 
   state = {
-    char: 41,
+    item: 41,
   };
 
   componentDidMount() {
@@ -25,7 +25,7 @@ export default class CharDetails extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.charId !== prevProps.charId) {
+    if (this.props.itemId !== prevProps.itemId) {
       this.updateChar();
     }
   }
@@ -41,18 +41,18 @@ export default class CharDetails extends Component {
   }
 
   render() {
-    if (!this.state.char) {
+    if (!this.state.item) {
       return <span className="select-error">Please select a character!</span>;
     }
-    const { char } = this.state;
-    const { name } = char;
+    const { item } = this.state;
+    const { name } = item;
 
     return (
       <div className="char-details rounded">
         <h4>{name}</h4>
         <ul className="list-group list-group-flush">
           {React.Children.map(this.props.Children, (child) => {
-            return React.cloneElement(child, { char });
+            return React.cloneElement(child, { item });
           })}
         </ul>
       </div>

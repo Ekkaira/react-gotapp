@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import ItemList from "../itemList";
-import CharDetails, { Field } from "../charDetails";
+import ItemDetails, { Field } from "../itemDetails";
 import ErrorMessage from "../errorMessage";
 import gotService from "../services/gotService";
 import RowBlock from "../rowBlock";
@@ -9,13 +9,13 @@ export default class BooksPage extends Component {
   gotService = new gotService();
 
   state = {
-    selectedChar: 130,
+    selectedBook: null,
     error: false,
   };
 
   onItemSelected = (id) => {
     this.setState({
-      selectedChar: id,
+      selectedBook: id,
     });
   };
 
@@ -38,13 +38,13 @@ export default class BooksPage extends Component {
       />
     );
 
-    const bookDetails = (
-      <CharDetails charId={this.state.selectedChar}>
+    const itemDetails = (
+      <ItemDetails itemId={this.state.selectedBook} getData={this.gotService.getBook}>
         <Field field="numberOfPages" label="Number of pages" />
         <Field field="publier" label="Publier" />
         <Field field="released" label="Released" />
-      </CharDetails>
+      </ItemDetails>
     );
-    return <RowBlock left={itemList} right={bookDetails} />;
+    return <RowBlock left={itemList} right={itemDetails} />;
   }
 }

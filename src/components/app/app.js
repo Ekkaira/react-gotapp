@@ -5,7 +5,7 @@ import RandomChar from "../randomChar";
 import ErrorMessage from "../errorMessage";
 import { CharacterPage, BooksPage, HousesPage } from "../pages";
 import gotService from "../services/gotService";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 import "./app.css";
 
@@ -38,24 +38,29 @@ export default class App extends Component {
       return <ErrorMessage />;
     }
     return (
-      <>
-        <Container>
-          <Header />
-        </Container>
-        <Container>
-          <Row>
-            <Col lg={{ size: 5, offset: 0 }}>
-              {char}
-              <button type="button" className="btn btn-primary" onClick={this.toggleRandomChar}>
-                Toggle Random Character
-              </button>
-            </Col>
-          </Row>
-          <CharacterPage />
-          <BooksPage />
-          <HousesPage />
-        </Container>
-      </>
+      <Router>
+        <div className="app">
+          <Container>
+            <Header />
+          </Container>
+          <Container>
+            <Row>
+              <Col lg={{ size: 5, offset: 0 }}>
+                {char}
+                <button type="button" className="btn btn-primary" onClick={this.toggleRandomChar}>
+                  Toggle Random Character
+                </button>
+              </Col>
+            </Row>
+            <Routes>
+              <Route path="/characters" element={<CharacterPage />} />
+              <Route path="/houses" element={<HousesPage />} />
+              <Route path="/books" element={<BooksPage />} />
+              <Route path="/books/:id" />
+            </Routes>
+          </Container>
+        </div>
+      </Router>
     );
   }
 }
