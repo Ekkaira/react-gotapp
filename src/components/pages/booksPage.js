@@ -34,17 +34,17 @@ export default class BooksPage extends Component {
       <ItemList
         onItemSelected={this.onItemSelected}
         getData={this.gotService.getAllBooks}
-        renderItem={({ name, numberOfPages }) => `${name} (${numberOfPages}) `}
+        renderItem={({ name }) => name}
       />
     );
 
-    const itemDetails = (
+    const bookDetails = (
       <ItemDetails itemId={this.state.selectedBook} getData={this.gotService.getBook}>
         <Field field="numberOfPages" label="Number of pages" />
         <Field field="publier" label="Publier" />
         <Field field="released" label="Released" />
       </ItemDetails>
     );
-    return <RowBlock left={itemList} right={itemDetails} />;
+    return <RowBlock left={itemList} right={bookDetails} />;
   }
 }

@@ -5,6 +5,10 @@ import ItemDetails, { Field } from "../itemDetails";
 export default class BooksItem extends Component {
   gotService = new gotService();
 
+  state = {
+    selectedBook: 3,
+  };
+
   render() {
     return (
       <ItemDetails itemId={this.state.selectedBook} getData={this.gotService.getBook}>

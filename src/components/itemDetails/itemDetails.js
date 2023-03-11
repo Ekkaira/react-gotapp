@@ -3,11 +3,11 @@ import gotService from "../services/gotService";
 
 import "./itemDetails.css";
 
-const Field = ({ char, field, label }) => {
+const Field = ({ item, field, label }) => {
   return (
     <li className="list-group-item d-flex justify-content-between">
       <span className="term">{label}</span>
-      <span>{char[field]}</span>
+      <span>{item[field]}</span>
     </li>
   );
 };
@@ -17,32 +17,56 @@ export default class ItemDetails extends Component {
   gotService = new gotService();
 
   state = {
-    item: 41,
+    item: null,
   };
 
   componentDidMount() {
     this.updateChar();
+    this.updateHouse();
+    this.updateBook();
   }
 
   componentDidUpdate(prevProps) {
     if (this.props.itemId !== prevProps.itemId) {
       this.updateChar();
+      this.updateHouse();
+      this.updateBook();
     }
   }
 
   updateChar() {
-    const { charId } = this.props;
-    if (!charId) {
+    const { itemId } = this.props;
+    if (!itemId) {
       return;
     }
-    this.gotService.getCharacter(charId).then((char) => {
-      this.setState({ char });
+    this.gotService.getCharacter(itemId).then((item) => {
+      this.setState({ item });
+    });
+  }
+
+  updateHouse() {
+    const { itemId } = this.props;
+    if (!itemId) {
+      return;
+    }
+    this.gotService.getHouse(itemId).then((item) => {
+      this.setState({ item });
+    });
+  }
+
+  updateBook() {
+    const { itemId } = this.props;
+    if (!itemId) {
+      return;
+    }
+    this.gotService.getBook(itemId).then((item) => {
+      this.setState({ item });
     });
   }
 
   render() {
     if (!this.state.item) {
-      return <span className="select-error">Please select a character!</span>;
+      return <span className="select-error">Please select item!</span>;
     }
     const { item } = this.state;
     const { name } = item;
@@ -51,7 +75,7 @@ export default class ItemDetails extends Component {
       <div className="char-details rounded">
         <h4>{name}</h4>
         <ul className="list-group list-group-flush">
-          {React.Children.map(this.props.Children, (child) => {
+          {React.Children.map(this.props.children, (child) => {
             return React.cloneElement(child, { item });
           })}
         </ul>
