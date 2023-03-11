@@ -43,7 +43,7 @@ export default class HousesPage extends Component {
         <Field field="region" label="Region" />
         <Field field="worlds" label="Worlds" />
         <Field field="titles" label="Titles" />
-        <Field field="overlord" label="Overlord" />
+        <Field field="ancestralWeapons" label="Ancestral Weapons" />
       </ItemDetails>
     );
     return <RowBlock left={itemList} right={houseDetails} />;
