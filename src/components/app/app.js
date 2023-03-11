@@ -3,7 +3,7 @@ import { Col, Row, Container } from "reactstrap";
 import Header from "../header";
 import RandomChar from "../randomChar";
 import ErrorMessage from "../errorMessage";
-import { CharacterPage, BooksPage, HousesPage, BooksItem } from "../pages";
+import { CharacterPage, BooksPage, HousesPage } from "../pages";
 import gotService from "../services/gotService";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
@@ -57,12 +57,6 @@ export default class App extends Component {
               <Route path="/characters" element={<CharacterPage />} />
               <Route path="/houses" element={<HousesPage />} />
               <Route path="/books" exact element={<BooksPage />} />
-              <Route
-                path="/books/:id"
-                render={({ match, location, history }) => {
-                  return <BooksItem />;
-                }}
-              />
             </Routes>
           </Container>
         </div>
